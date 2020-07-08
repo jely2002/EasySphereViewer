@@ -159,14 +159,14 @@ function setApplicationMenu() {
         submenu: [
             {
                 label: 'Visit on github',
-                click: () => shell.openExternal('https://github.com/jely2002/esv')
+                click: () => shell.openExternal('https://github.com/jely2002/easysphereviewer')
             },
             {
                 type: 'separator'
             },
             {
                 label: 'Version ' + app.getVersion(),
-                click: () => shell.openExternal('https://github.com/jely2002/esv/releases')
+                click: () => shell.openExternal('https://github.com/jely2002/easysphereviewer/releases')
             },
             {
                 label: 'By Jelle Glebbeek',
