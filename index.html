@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy Sphere Viewer</title>
+    <link rel="stylesheet" href="resources/custom.css">
+    <link rel="stylesheet" href="resources/libraries/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.css">
+</head>
+<body>
+    <div class="container-fluid d-flex align-items-center min-vh-100 start">
+        <div class="file-dialog p-4 mx-auto" onclick="openNewSphere()">
+            <i class="fas fa-plus mr-3"></i> Open a new sphere
+        </div>
+    </div>
+    <div id="viewer"></div>
+    <script>window.$ = window.jQuery = require('jquery')</script>
+    <script src="resources/libraries/bootstrap/bootstrap.min.js"></script>
+    <script src="node_modules/three/build/three.min.js"></script>
+    <script src="node_modules/uevent/browser.js"></script>
+    <script src="node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.js"></script>
+    <script src="viewer.js"></script>
+    <script src="interface.js"></script>
+</body>
+</html>

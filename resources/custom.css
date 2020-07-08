@@ -1,0 +1,48 @@
+.container-after-titlebar {
+    width: 100%;
+    height: 100%;
+    background-color: #212121;
+    color: #fff;
+}
+
+.file-dialog {
+    background-color: #303030;
+    text-align: center;
+    font-size: 200%;
+    cursor: pointer;
+}
+
+#sphereViewer {
+    width: 100vw;
+    height: 100vh;
+}
+
+#viewer {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - 30px);
+    top: 0;
+    left: 0;
+}
+
+:fullscreen {
+    height: 100vh !important;
+}
+
+.psv-container {
+    background: #212121 !important;
+}
+
+.psv-navbar {
+    padding-bottom: 6px;
+    background: rgba(48,48,48,0.6) !important;
+}
+
+.psv-caption-content {
+    padding: 14px 10px 0 !important;
+}
+
+.psv-notification {
+    display: none;
+}

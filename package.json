@@ -1,0 +1,35 @@
+{
+  "name": "easy-sphere-viewer",
+  "version": "0.1.0",
+  "description": "An easy to use program to view 360 images.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --dev",
+    "dist": "electron-builder",
+    "release": "electron-builder --win -p always"
+  },
+  "keywords": [
+    "360",
+    "viewer",
+    "panoramic",
+    "equirectangular",
+    "photo",
+    "gui"
+  ],
+  "author": "Jelle Glebbeek",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-builder": "^22.7.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@popperjs/core": "^2.4.4",
+    "custom-electron-titlebar": "^3.2.2-hotfix62",
+    "electron-updater": "^4.3.1",
+    "jquery": "^3.5.1",
+    "photo-sphere-viewer": "^4.0.5",
+    "three": "^0.118.3",
+    "uevent": "^2.0.0"
+  }
+}
