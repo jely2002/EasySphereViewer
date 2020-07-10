@@ -17,7 +17,7 @@ function createWindow () {
             resizable: true,
             maximizable: true,
             titleBarStyle: "hidden",
-            icon: "resources/icons/icon.png",
+            //icon: "resources/icons/icon.png",
             webPreferences: {
                 nodeIntegration: true,
             }
@@ -31,7 +31,7 @@ function createWindow () {
             resizable: true,
             maximizable: true,
             frame: false,
-            icon: "resources/icons/icon.png",
+           // icon: "resources/icons/icon.png",
             webPreferences: {
                 nodeIntegration: true
             }
@@ -39,6 +39,7 @@ function createWindow () {
     }
     win.removeMenu()
     windowMenu = setApplicationMenu();
+    console.log(windowMenu.getMenuItemById('recents').submenu.items);
     if(process.argv[2] === '--dev') {
         win.webContents.openDevTools();
     }
@@ -46,7 +47,16 @@ function createWindow () {
     win.on('closed', () => {
         win = null;
     })
-
+    win.on('leave-html-full-screen', (event, arg) => {
+        windowMenu.getMenuItemById('fullscreenBox').checked = win.isFullScreen();
+        win.webContents.send('change-navbar', false)
+        Menu.setApplicationMenu(windowMenu);
+    })
+    win.on('enter-html-full-screen', (event, arg) => {
+        windowMenu.getMenuItemById('fullscreenBox').checked = win.isFullScreen();
+        win.webContents.send('change-navbar', true)
+        Menu.setApplicationMenu(windowMenu);
+    })
     win.once('ready-to-show', () => {
         win.show();
     })
@@ -82,6 +92,10 @@ ipcMain.on('open-file-dialog', (event, arg) => {
     });
 })
 
+ipcMain.on('get-apppath', event => {
+    event.returnValue = app.getAppPath();
+})
+
 ipcMain.on('change-menu-checkbox', (event, args) => {
     if(args[0] === "navbar") {
         isNavbarHidden = args[1];
@@ -99,9 +113,30 @@ ipcMain.on('change-enabled',(event, arg) => {
     Menu.setApplicationMenu(windowMenu);
 })
 
-ipcMain.on('update-recent-list', (event, args) => { //TODO Create recent list
-
+ipcMain.on('update-recent-list', (event, arg) => {
+    let recentList = arg;
+    windowMenu.getMenuItemById('recents').submenu.items = [];
+    if(recentList.length === 0) {
+        windowMenu.getMenuItemById('recents').enabled = false;
+    } else {
+        windowMenu.getMenuItemById('recents').enabled = true;
+        recentList.forEach((item) => {
+            let recentItem = {
+                label: truncateString(item.name, 30),
+                enabled: true,
+                click: () => win.webContents.send('menu-click', item.path)
+            }
+            windowMenu.getMenuItemById('recents').submenu.items.push(recentItem);
+        })
+    }
 })
+
+function truncateString(string, length){
+    if (string.length > length)
+        return string.substring(0,length)+'...';
+    else
+        return string;
+};
 
 function setApplicationMenu() {
     const menu = new Menu();
@@ -125,11 +160,8 @@ function setApplicationMenu() {
             },
             {
                 label: 'Open recent sphere',
-                submenu: [
-                    {
-                        label: 'Imaginary sphere' //TODO Create recents list
-                    }
-                ]
+                id: 'recents',
+                submenu: []
             }
         ]
     }));

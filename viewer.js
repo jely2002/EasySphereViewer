@@ -1,7 +1,6 @@
 'use strict'
 
 let viewer;
-let navVisible = true;
 
 function initializeSphereViewer(path) {
     let fileName;
@@ -10,6 +9,9 @@ function initializeSphereViewer(path) {
     } else {
         fileName = path.split('\\').pop();
     }
+    console.log(fileName)
+    console.log(path)
+    addRecentList(fileName, path);
     viewer = new PhotoSphereViewer.Viewer({
         container: document.querySelector('#viewer'),
         panorama: path,
@@ -51,17 +53,16 @@ function initializeSphereViewer(path) {
     })
     viewer.on('ready', (e) => {
         window.dispatchEvent(new Event('resize'));
-        if(!navVisible) {
-            viewer.navbar.hide();
-        }
     });
 }
 
 function setPanoramaPath(path) {
     if(path === undefined) return;
-    if(viewer !== undefined) viewer.destroy();
+    if(typeof viewer !== 'undefined' && viewer.children.length !== 0) viewer.destroy();
+    ipcRenderer.send('change-menu-checkbox', ['navbar',false])
     initializeSphereViewer(path);
     ipcRenderer.send('change-enabled', true);
+    ipcRenderer.send('update-recent-list', recentList);
     $("#viewer").css("display", "initial");
 }
 
@@ -84,15 +85,22 @@ function toggleNavbar() {
 function toggleFullscreen() {
     if(viewer.isFullscreenEnabled()) {
         viewer.exitFullscreen();
-        $('#viewer').css("height", "calc(100vh - 30px)");
+        setNavHeight(false);
         ipcRenderer.send('change-menu-checkbox', ['fullscreen',false])
     } else {
-        $('#viewer').css("height", "100vh");
         viewer.enterFullscreen();
+        setNavHeight(true);
         ipcRenderer.send('change-menu-checkbox', ['fullscreen',true])
     }
 }
 function openNewSphere() {
-    if(viewer !== undefined) navVisible = viewer.navbar.isVisible();
     ipcRenderer.send("open-file-dialog");
+}
+
+function setNavHeight(fullscreen) {
+    if(fullscreen) {
+        $('#viewer').css("height", "100vh");
+    } else {
+        $('#viewer').css("height", "calc(100vh - 30px)");
+    }
 }
