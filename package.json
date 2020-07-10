@@ -1,6 +1,6 @@
 {
   "name": "easy-sphere-viewer",
-  "version": "0.1.0",
+  "version": "1.1.2",
   "description": "An easy to use program to view 360 images.",
   "main": "main.js",
   "scripts": {
@@ -28,8 +28,27 @@
     "custom-electron-titlebar": "^3.2.2-hotfix62",
     "electron-updater": "^4.3.1",
     "jquery": "^3.5.1",
+    "mkdirp": "^1.0.4",
     "photo-sphere-viewer": "^4.0.5",
     "three": "^0.118.3",
     "uevent": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jely2002/easysphereviewer.git"
+  },
+  "build": {
+    "appId": "com.jelleglebbeek.easysphereviewer",
+    "productName": "Easy Sphere Viewer",
+    "copyright": "Copyright © 2020 Jelle Glebbeek",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities"
+    }
   }
 }
