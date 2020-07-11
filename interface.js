@@ -145,3 +145,12 @@ function writeFile(path, file, contents) {
         fs.writeFileSync(path + file, contents);
     })
 }
+
+document.ondragover = document.ondrop = (ev) => {
+    ev.preventDefault()
+}
+
+document.body.ondrop = (ev) => {
+    setPanoramaPath(ev.dataTransfer.files[0].path);
+    ev.preventDefault();
+}
