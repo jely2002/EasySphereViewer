@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new cubemap</title>
+    <link rel="stylesheet" href="resources/libraries/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="resources/modal.css">
+</head>
+<body>
+    <div class="container">
+     <h4 class="my-4">Configure your cubemap</h4>
+        <form>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="leftInputLabel" for="left">Left side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="left">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="rightInputLabel" for="right">Right side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="right">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="frontInputLabel" for="front">Front side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="front">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="backInputLabel" for="back">Back side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="back">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="topInputLabel" for="top">Top side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="top">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <label class="custom-file-label" id="bottomInputLabel" for="bottom">Bottom side</label>
+                    <input type="text" onclick="setPath(this)" class="custom-file-input" id="bottom">
+                </div>
+            </div>
+            <button type="button" onclick="ipcRenderer.send('close-cubemap-modal');" class="btn btn-dark">Cancel</button>
+            <button type="button" onclick="openCubemap()" id="open-btn" class="btn btn-dark" disabled>Open</button>
+        </form>
+    </div>
+    <script>window.$ = window.jQuery = require('jquery')</script>
+    <script src="resources/libraries/bootstrap/bootstrap.min.js"></script>
+    <script src="cubemapModal.js"></script>
+</body>
+</html>

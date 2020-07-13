@@ -1,0 +1,17 @@
+.menubar {
+    display: none !important;
+}
+
+.window-minimize {
+    display: none;
+}
+.window-maximize {
+    display: none;
+}
+
+.container-after-titlebar {
+    width: 100%;
+    height: 100%;
+    background-color: #212121;
+    color: #fff;
+}

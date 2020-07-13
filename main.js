@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain, Menu, MenuItem, dialog, shell } = require('
 const { autoUpdater } = require("electron-updater");
 
 let win;
+let cubeModal;
 let windowMenu;
 let isNavbarHidden = false;
 let sphereOpened = false;
@@ -113,6 +114,34 @@ ipcMain.on('change-enabled',(event, arg) => {
     Menu.setApplicationMenu(windowMenu);
 })
 
+ipcMain.on('open-cubemap-modal', (event) => {
+    cubeModal = new BrowserWindow({parent: win,
+        modal: true,
+        show: false,
+        resizable: false,
+        maximizable: false,
+        titleBarStyle: "hidden",
+        width: 400,
+        height: 500,
+        frame: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    cubeModal.removeMenu();
+    cubeModal.loadFile('cubemapModal.html');
+    cubeModal.once('ready-to-show', () => {
+        cubeModal.show();
+    })
+})
+
+ipcMain.on('close-cubemap-modal', (event, arg) => {
+    if(arg !== undefined) {
+        win.webContents.send('cubemap-selected', arg);
+    }
+    cubeModal.close();
+})
+
 ipcMain.on('update-recent-list', (event, arg) => {
     let recentList = arg;
     windowMenu.getMenuItemById('recents').submenu.items = [];
@@ -131,12 +160,30 @@ ipcMain.on('update-recent-list', (event, arg) => {
     }
 })
 
+ipcMain.on('update-recent-cubemap-list', (event, arg) => {
+    let recentCubemapList = arg;
+    windowMenu.getMenuItemById('cubemapRecents').submenu.items = [];
+    if(recentCubemapList.length === 0) {
+        windowMenu.getMenuItemById('cubemapRecents').enabled = false;
+    } else {
+        windowMenu.getMenuItemById('cubemapRecents').enabled = true;
+        recentCubemapList.forEach((item) => {
+            let recentItem = {
+                label: truncateString(item.name, 30),
+                enabled: true,
+                click: () => win.webContents.send('menu-click', item.sides)
+            }
+            windowMenu.getMenuItemById('cubemapRecents').submenu.items.push(recentItem);
+        })
+    }
+})
+
 function truncateString(string, length){
     if (string.length > length)
         return string.substring(0,length)+'...';
     else
         return string;
-};
+}
 
 function setApplicationMenu() {
     const menu = new Menu();
@@ -149,7 +196,12 @@ function setApplicationMenu() {
 
             },
             {
-                label: 'Close sphere',
+                label: 'Open new cubemap',
+                click: () => win.webContents.send('menu-click', 'openCubemap')
+
+            },
+            {
+                label: 'Close file',
                 enabled: sphereOpened,
                 id: 'closeSphere',
                 click: () => win.webContents.send('menu-click', 'close')
@@ -161,6 +213,11 @@ function setApplicationMenu() {
             {
                 label: 'Open recent sphere',
                 id: 'recents',
+                submenu: []
+            },
+            {
+                label: 'Open recent cubemap',
+                id: 'cubemapRecents',
                 submenu: []
             }
         ]
