@@ -5,6 +5,7 @@ const { autoUpdater } = require("electron-updater");
 let win;
 let cubeModal;
 let windowMenu;
+let lastVisitedPath = app.getPath('downloads');
 let isNavbarHidden = false;
 let sphereOpened = false;
 
@@ -82,14 +83,21 @@ app.on('activate', () => {
 });
 
 ipcMain.on('open-file-dialog', (event, arg) => {
-    let path = dialog.showOpenDialog(win, {
-        defaultPath: app.getPath('downloads'),
+    dialog.showOpenDialog(win, {
+        defaultPath: lastVisitedPath,
         properties: [
             'openFile',
             'createDirectory'
         ]
     }).then(result => {
-        event.reply("selectedPath", result.filePaths[0]);
+        if(result.filePaths.length !== 0) {
+            if (process.platform === "darwin") {
+                lastVisitedPath = result.filePaths[0].split('/').splice(-1, 1).join();
+            } else {
+                lastVisitedPath = result.filePaths[0].split('\\').splice(-1, 1).join();
+            }
+        }
+        event.returnValue = result.filePaths[0];
     });
 })
 
