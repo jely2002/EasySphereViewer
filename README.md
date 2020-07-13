@@ -1,12 +1,13 @@
 # Easy Sphere Viewer
 
-A cross-platform tool for viewing equirectangular 360 degree photos.
+A cross-platform tool for viewing equirectangular and cubemap 360 degree photos.
 
 **Features:**
-- View and move around in 360 degree photos.
+- View and move the camera in 360 degree photos.
 - Re-open recently opened photos.
 - Zoom controls
 - Auto rotate
+- Cubemap & equirectangular support
 - More to come!
 ## How to use
 Download the .exe if you are on Windows (Mac OS is not yet supported).
@@ -17,6 +18,6 @@ Oh no! Please open up an issue [right here](https://github.com/jely2002/easysphe
 
 ## Planned features
 - Mac OS support
-- Cubemap image support
+- Add mnemonics to menu
 
 Feel free to [request a new feature](https://github.com/jely2002/easysphereviewer/issues).
