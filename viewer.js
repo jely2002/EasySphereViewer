@@ -139,8 +139,10 @@ function closeViewer() {
 function toggleNavbar() {
     if(viewer.navbar.isVisible()) {
         viewer.navbar.hide();
+        $('.psv-navbar').fadeOut(200);
         ipcRenderer.send('change-menu-checkbox', ['navbar',true])
     } else {
+        $('.psv-navbar').fadeIn(10);
         viewer.navbar.show();
         ipcRenderer.send('change-menu-checkbox', ['navbar',false])
     }
