@@ -1,6 +1,6 @@
 {
   "name": "easy-sphere-viewer",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "An easy to use program to view 360 images.",
   "main": "main.js",
   "scripts": {
