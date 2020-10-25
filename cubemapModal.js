@@ -18,7 +18,7 @@ if(process.platform === "darwin") {
         maximizable: false,
         shadow: false,
         titleHorizontalAlignment: "center",
-        enableMnemonics: false,
+        enableMnemonics: true,
         icon: "resources/icons/icon.png"
     })
 } else {
