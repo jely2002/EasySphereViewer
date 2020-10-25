@@ -64,8 +64,11 @@ function getDataPath() {
     let dataPath;
     if(process.platform === "win32") {
         dataPath = 'resources/data/';
-    } else {
+    } else if(process.platform === "darwin") {
         dataPath = ipcRenderer.sendSync('get-apppath').slice(0, -8) + 'data/';
+    } else {
+        let result = ipcRenderer.sendSync('get-homepath')
+        dataPath = result + "/.easysphereviewer/" + 'data/'
     }
     return dataPath;
 }

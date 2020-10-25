@@ -105,6 +105,10 @@ ipcMain.on('get-apppath', event => {
     event.returnValue = app.getAppPath();
 })
 
+ipcMain.on('get-homepath', event => {
+    event.returnValue = app.getPath("home");
+})
+
 ipcMain.on('change-menu-checkbox', (event, args) => {
     if(args[0] === "navbar") {
         isNavbarHidden = args[1];
