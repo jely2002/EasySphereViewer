@@ -200,19 +200,22 @@ function setApplicationMenu() {
         submenu: [
             {
                 label: 'Open new sphere',
-                click: () => win.webContents.send('menu-click', 'open')
+                click: () => win.webContents.send('menu-click', 'open'),
+                accelerator: "CommandOrControl+O"
 
             },
             {
                 label: 'Open new cubemap',
-                click: () => win.webContents.send('menu-click', 'openCubemap')
+                click: () => win.webContents.send('menu-click', 'openCubemap'),
+                accelerator: "CommandOrControl+Shift+O"
 
             },
             {
                 label: 'Close file',
                 enabled: sphereOpened,
                 id: 'closeSphere',
-                click: () => win.webContents.send('menu-click', 'close')
+                click: () => win.webContents.send('menu-click', 'close'),
+                accelerator: "CommandOrControl+Q"
 
             },
             {
@@ -239,7 +242,8 @@ function setApplicationMenu() {
                 type: 'checkbox',
                 enabled: sphereOpened,
                 checked: isNavbarHidden,
-                click: () => win.webContents.send('menu-click', 'nav')
+                click: () => win.webContents.send('menu-click', 'nav'),
+                accelerator: "CommandOrControl+H"
             },
             {
                 label: 'Fullscreen',
@@ -247,7 +251,8 @@ function setApplicationMenu() {
                 type: 'checkbox',
                 enabled: sphereOpened,
                 checked: win.isFullScreen(),
-                click: () => win.webContents.send('menu-click', 'fullscreen')
+                click: () => win.webContents.send('menu-click', 'fullscreen'),
+                accelerator: "F11"
             },
         ]
     }));
