@@ -48,7 +48,20 @@
     "mac": {
       "target": "dmg",
       "icon": "build/icon.icns",
-      "category": "public.app-category.utilities"
+      "category": "public.app-category.utilities",
+      "identity": null
+    },
+    "linux": {
+      "target": "AppImage",
+      "executableName": "EasySphereViewer",
+      "icon": "build/",
+      "synopsis": "A cross-platform tool for viewing equirectangular and cubemap photos.",
+      "category": "utility",
+      "desktop": {
+        "Name": "Easy Sphere Viewer",
+        "Icon": "build/icon.png",
+        "Comment": "A cross-platform tool for viewing equirectangular and cubemap photos."
+      }
     }
   }
 }
