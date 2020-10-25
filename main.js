@@ -24,6 +24,19 @@ function createWindow () {
                 nodeIntegration: true,
             }
         })
+    } else if(process.platform === "linux") {
+        win = new BrowserWindow({
+            show: false,
+            width: 800,
+            height: 530,
+            resizable: true,
+            maximizable: true,
+            frame: false,
+            // icon: "resources/icons/icon.png",
+            webPreferences: {
+                nodeIntegration: true
+            }
+        })
     } else {
         autoUpdater.checkForUpdatesAndNotify();
         win = new BrowserWindow({
