@@ -30,7 +30,7 @@
     "jquery": "^3.5.1",
     "mkdirp": "^1.0.4",
     "photo-sphere-viewer": "^4.0.5",
-    "three": "^0.118.3",
+    "three": ">=0.125.0",
     "uevent": "^2.0.0"
   },
   "repository": {
